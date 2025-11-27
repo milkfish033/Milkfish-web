@@ -33,6 +33,39 @@ const personalInfo = {
   location: "Boston, MA",
 };
 
+const projects = [
+  {
+    title: "YOLOv8 Emergency Detection System",
+    img: "/projects/yolo.png", // your local image path
+    desc: "A real-time hospital emergency behavior detection system built with YOLOv8, Flask backend, and SMTP alerts.",
+    link: "https://github.com/your-yolo-link",
+  },
+  {
+    title: "Travel App (AWS EC2/S3/RDS)",
+    img: "/projects/travel.png",
+    desc: "A scalable cross-platform travel web app built with cloud infrastructure, supporting route planning and dynamic content.",
+    link: "https://github.com/your-travel-link",
+  },
+  {
+    title: "PyAlgoLab",
+    img: "/projects/pyalgolab.png",
+    desc: "A modular algorithm-learning platform with 50+ implemented algorithms, visualizations, and unit tests.",
+    link: "https://github.com/your-pyalgolab-link",
+  },
+  {
+    title: "NLP2SQL Enterprise Engine",
+    img: "/projects/nlp2sql.png",
+    desc: "An enterprise NLP-to-SQL engine using RAG, fine-tuned LLMs, and Flask REST APIs, achieving 64% accuracy improvement.",
+    link: "https://github.com/your-nlp2sql-link",
+  },
+  {
+    title: "Data Tracking & Scraper System",
+    img: "/projects/tracker.png",
+    desc: "A Python scraping + multi-platform trending tracker with 25,000+ collected entries and MySQL/Mongo storage.",
+    link: "https://github.com/your-tracker-link",
+  },
+];
+
 // ------------------------------
 // SKILLS
 // ------------------------------
@@ -416,7 +449,7 @@ const CareerMap = ({ lang, theme }) => {
         className={`text-3xl md:text-4xl font-bold text-center mb-20 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400`}
       >
         <span className={`border-b-4 border-cyan-500 pb-2`}>
-          {lang === "zh" ? "教育与实习轨迹" : "Career Trajectory"}
+          {lang === "zh" ? "职业发展轨迹" : "Career Trajectory"}
         </span>
       </h2>
 
@@ -592,6 +625,63 @@ const Navbar = ({ theme, setTheme, lang, setLang }) => {
 // ------------------------------
 // MAIN PAGE
 // ------------------------------
+
+const ProjectSection = ({ theme }) => {
+  const isDark = theme === "dark";
+
+  return (
+    <section className="py-20">
+      <div className="container mx-auto px-6">
+        <h2 className="text-3xl font-bold text-center mb-12">
+          Featured Projects
+        </h2>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {projects.map((p, index) => (
+            <a
+              key={index}
+              href={p.link}
+              target="_blank"
+              rel="noreferrer"
+              className={`
+                rounded-xl overflow-hidden border group transition-all 
+                ${isDark ? "bg-slate-900 border-slate-800" : "bg-white border-slate-200"}
+                hover:scale-[1.03] hover:shadow-xl
+              `}
+            >
+              {/* IMAGE */}
+              <div className="w-full h-48 overflow-hidden bg-slate-200 dark:bg-slate-700">
+                <img
+                  src={p.img}
+                  alt={p.title}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                />
+              </div>
+
+              {/* TEXT */}
+              <div className="p-4">
+                <h3
+                  className={`text-lg font-semibold mb-2 
+                  ${isDark ? "text-white" : "text-slate-900"}`}
+                >
+                  {p.title}
+                </h3>
+
+                <p
+                  className={`text-sm line-clamp-2 
+                  ${isDark ? "text-slate-400" : "text-slate-600"}`}
+                >
+                  {p.desc}
+                </p>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
 export default function Portfolio() {
   const [theme, setTheme] = useState("dark");
   const [lang, setLang] = useState("en");
@@ -747,7 +837,7 @@ export default function Portfolio() {
         <div className="container mx-auto px-6">
           <h2 className="text-3xl font-bold text-center mb-16 flex items-center justify-center gap-3">
             <Terminal className="text-cyan-500" />
-            {lang === "zh" ? "技术栈" : "Technical Arsenal"}
+            {lang === "zh" ? "技术栈" : "Technology Stack"}
           </h2>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -781,6 +871,10 @@ export default function Portfolio() {
 
       {/* TIMELINE MAP (Education + Experience bilingual) */}
       <CareerMap lang={lang} theme={theme} />
+
+      {/* PROJECTS SECTION */}
+      <ProjectSection theme={theme} />
+
 
       {/* FOOTER */}
       <footer
